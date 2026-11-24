@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backend API Web GIS - Kelompok 14</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 40px auto;
+      max-width: 800px;
+      line-height: 1.6;
+      background-color: #f8fafc;
+      color: #1e293b;
+      padding: 0 20px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: #0f172a;
+      margin-top: 0;
+    }
+    .badge {
+      display: inline-block;
+      background: #10b981;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    li {
+      margin-bottom: 12px;
+      padding: 10px;
+      background: #f1f5f9;
+      border-radius: 6px;
+    }
+    .method {
+      display: inline-block;
+      font-weight: bold;
+      width: 60px;
+      color: #2563eb;
+    }
+    .method.post {
+      color: #d97706;
+    }
+    a {
+      color: #0284c7;
+      text-decoration: none;
+      font-family: monospace;
+      font-size: 1rem;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    pre {
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 12px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">SK-3 Active</span>
+    <h1>Backend API Web GIS — Kelompok 14</h1>
+    <p><strong>Kasus:</strong> Pemetaan PAUD, TK & Daycare di Pontianak Utara</p>
+    <p>Server Node.js dan Express berhasil berjalan dan melayani data GeoJSON.</p>
+  </div>
+
+  <div class="card">
+    <h2>Daftar Endpoint API:</h2>
+    <ul>
+      <li>
+        <span class="method">GET</span>
+        <a href="/api/data/paud" target="_blank">/api/data/paud</a>
+        <br><small>Menyajikan 32 data fasilitas PAUD, TK, dan Daycare dalam format GeoJSON.</small>
+      </li>
+      <li>
+        <span class="method">GET</span>
+        <a href="/api/stats/jenjang" target="_blank">/api/stats/jenjang</a>
+        <br><small>Menyajikan statistik agregat jumlah fasilitas per jenjang dan akreditasi.</small>
+      </li>
+      <li>
+        <span class="method">GET</span>
+        <a href="/api/data/zona" target="_blank">/api/data/zona</a>
+        <br><small>Menyajikan data 2 poligon zona pendidikan anak dalam format GeoJSON.</small>
+      </li>
+      <li>
+        <span class="method post">POST</span>
+        <code>/api/feature/zona</code>
+        <br><small>Menyimpan poligon baru hasil digitasi ke file zona_pendidikan_anak.geojson.</small>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

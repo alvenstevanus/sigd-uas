@@ -1,0 +1,716 @@
+{
+  "type": "FeatureCollection",
+  "name": "paud_north",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1,
+        "nama": "TK Negeri 1 Utara",
+        "jenjang": "TK",
+        "latitude": 0.021,
+        "longitude": 109.341,
+        "jumlah_siswa": 55,
+        "jumlah_sis": 55,
+        "akreditasi": "A",
+        "biaya": 150000,
+        "kode_paud": "TK_55"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.33477690468,
+          0.009632181773478
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 2,
+        "nama": "TK Pembina Siantan",
+        "jenjang": "TK",
+        "latitude": 0.0225,
+        "longitude": 109.345,
+        "jumlah_siswa": 45,
+        "jumlah_sis": 45,
+        "akreditasi": "A",
+        "biaya": 100000,
+        "kode_paud": "TK_45"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.349340777589,
+          0.010775941426054
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 3,
+        "nama": "TK Al-Bina",
+        "jenjang": "TK",
+        "latitude": 0.023,
+        "longitude": 109.342,
+        "jumlah_siswa": 25,
+        "jumlah_sis": 25,
+        "akreditasi": "B",
+        "biaya": 120000,
+        "kode_paud": "TK_25"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.28983512758,
+          0.015650232835293
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 4,
+        "nama": "TK Melati",
+        "jenjang": "TK",
+        "latitude": 0.0245,
+        "longitude": 109.338,
+        "jumlah_siswa": 60,
+        "jumlah_sis": 60,
+        "akreditasi": "A",
+        "biaya": 130000,
+        "kode_paud": "TK_60"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.324864321024,
+          0.017867251272027
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 5,
+        "nama": "TK Bintang",
+        "jenjang": "TK",
+        "latitude": 0.025,
+        "longitude": 109.349,
+        "jumlah_siswa": 20,
+        "jumlah_sis": 20,
+        "akreditasi": "C",
+        "biaya": 90000,
+        "kode_paud": "TK_20"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.349,
+          0.025
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 6,
+        "nama": "TK Harapan Bangsa",
+        "jenjang": "TK",
+        "latitude": 0.026,
+        "longitude": 109.344,
+        "jumlah_siswa": 35,
+        "jumlah_sis": 35,
+        "akreditasi": "A",
+        "biaya": 110000,
+        "kode_paud": "TK_35"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.362039702252,
+          0.014061379113916
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 7,
+        "nama": "TK Tunas Baru",
+        "jenjang": "TK",
+        "latitude": 0.027,
+        "longitude": 109.335,
+        "jumlah_siswa": 40,
+        "jumlah_sis": 40,
+        "akreditasi": "B",
+        "biaya": 100000,
+        "kode_paud": "TK_40"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.329515610278,
+          0.025797318196556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 8,
+        "nama": "TK Mentari",
+        "jenjang": "TK",
+        "latitude": 0.028,
+        "longitude": 109.34,
+        "jumlah_siswa": 28,
+        "jumlah_sis": 28,
+        "akreditasi": "A",
+        "biaya": 140000,
+        "kode_paud": "TK_28"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.336051383649,
+          0.017313331573164
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 9,
+        "nama": "TK Ceria",
+        "jenjang": "TK",
+        "latitude": 0.029,
+        "longitude": 109.346,
+        "jumlah_siswa": 50,
+        "jumlah_sis": 50,
+        "akreditasi": "B",
+        "biaya": 115000,
+        "kode_paud": "TK_50"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.355783231622,
+          -0.000801151812595
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10,
+        "nama": "TK Pelangi",
+        "jenjang": "TK",
+        "latitude": 0.03,
+        "longitude": 109.342,
+        "jumlah_siswa": 32,
+        "jumlah_sis": 32,
+        "akreditasi": "A",
+        "biaya": 125000,
+        "kode_paud": "TK_32"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.323730673636,
+          0.021299490511298
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11,
+        "nama": "PAUD Kasih Ibu",
+        "jenjang": "PAUD",
+        "latitude": 0.0215,
+        "longitude": 109.343,
+        "jumlah_siswa": 25,
+        "jumlah_sis": 25,
+        "akreditasi": "B",
+        "biaya": 80000,
+        "kode_paud": "PA_25"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.323644310728,
+          0.009022176625437
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 12,
+        "nama": "PAUD Ananda",
+        "jenjang": "PAUD",
+        "latitude": 0.022,
+        "longitude": 109.346,
+        "jumlah_siswa": 35,
+        "jumlah_sis": 35,
+        "akreditasi": "A",
+        "biaya": 90000,
+        "kode_paud": "PA_35"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.346,
+          0.022
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 13,
+        "nama": "PAUD Mutiara",
+        "jenjang": "PAUD",
+        "latitude": 0.0235,
+        "longitude": 109.341,
+        "jumlah_siswa": 20,
+        "jumlah_sis": 20,
+        "akreditasi": "C",
+        "biaya": 75000,
+        "kode_paud": "PA_20"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.301150370894,
+          0.015274729392854
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 14,
+        "nama": "PAUD Sayang Anak",
+        "jenjang": "PAUD",
+        "latitude": 0.024,
+        "longitude": 109.339,
+        "jumlah_siswa": 45,
+        "jumlah_sis": 45,
+        "akreditasi": "A",
+        "biaya": 85000,
+        "kode_paud": "PA_45"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.311672959698,
+          0.009479680486468
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 15,
+        "nama": "PAUD Tunas Daud",
+        "jenjang": "PAUD",
+        "latitude": 0.0255,
+        "longitude": 109.348,
+        "jumlah_siswa": 15,
+        "jumlah_sis": 15,
+        "akreditasi": "B",
+        "biaya": 70000,
+        "kode_paud": "PA_15"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.304886652426,
+          0.023509798891404
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 16,
+        "nama": "PAUD Permata",
+        "jenjang": "PAUD",
+        "latitude": 0.0265,
+        "longitude": 109.345,
+        "jumlah_siswa": 31,
+        "jumlah_sis": 31,
+        "akreditasi": "A",
+        "biaya": 95000,
+        "kode_paud": "PA_31"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.305635395143,
+          0.018563131324483
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 17,
+        "nama": "PAUD Kuncup",
+        "jenjang": "PAUD",
+        "latitude": 0.0275,
+        "longitude": 109.336,
+        "jumlah_siswa": 28,
+        "jumlah_sis": 28,
+        "akreditasi": "B",
+        "biaya": 80000,
+        "kode_paud": "PA_28"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.341468888586,
+          -0.012928891097252
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 18,
+        "nama": "PAUD Mekar",
+        "jenjang": "PAUD",
+        "latitude": 0.0285,
+        "longitude": 109.341,
+        "jumlah_siswa": 40,
+        "jumlah_sis": 40,
+        "akreditasi": "A",
+        "biaya": 90000,
+        "kode_paud": "PA_40"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.35374235504,
+          0.022270456674361
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 19,
+        "nama": "PAUD Asoka",
+        "jenjang": "PAUD",
+        "latitude": 0.0295,
+        "longitude": 109.347,
+        "jumlah_siswa": 22,
+        "jumlah_sis": 22,
+        "akreditasi": "C",
+        "biaya": 75000,
+        "kode_paud": "PA_22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.34032536806,
+          0.006028840855847
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 20,
+        "nama": "PAUD Dahlia",
+        "jenjang": "PAUD",
+        "latitude": 0.031,
+        "longitude": 109.343,
+        "jumlah_siswa": 34,
+        "jumlah_sis": 34,
+        "akreditasi": "A",
+        "biaya": 85000,
+        "kode_paud": "PA_34"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.356430177458,
+          0.002433577363433
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 21,
+        "nama": "Daycare Bunda",
+        "jenjang": "Daycare",
+        "latitude": 0.0218,
+        "longitude": 109.342,
+        "jumlah_siswa": 15,
+        "jumlah_sis": 15,
+        "akreditasi": "A",
+        "biaya": 300000,
+        "kode_paud": "DA_15"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.332998987011,
+          0.001085740389342
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 22,
+        "nama": "Daycare Little Steps",
+        "jenjang": "Daycare",
+        "latitude": 0.0228,
+        "longitude": 109.344,
+        "jumlah_siswa": 12,
+        "jumlah_sis": 12,
+        "akreditasi": "B",
+        "biaya": 250000,
+        "kode_paud": "DA_12"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.354704988564,
+          -0.009103623364402
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 23,
+        "nama": "Daycare Ceria",
+        "jenjang": "Daycare",
+        "latitude": 0.0238,
+        "longitude": 109.34,
+        "jumlah_siswa": 25,
+        "jumlah_sis": 25,
+        "akreditasi": "A",
+        "biaya": 350000,
+        "kode_paud": "DA_25"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.344246030895,
+          -0.009858393505475
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 24,
+        "nama": "Daycare Happy Kids",
+        "jenjang": "Daycare",
+        "latitude": 0.0248,
+        "longitude": 109.337,
+        "jumlah_siswa": 10,
+        "jumlah_sis": 10,
+        "akreditasi": "C",
+        "biaya": 200000,
+        "kode_paud": "DA_10"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.337,
+          0.0248
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 25,
+        "nama": "Daycare Pelita",
+        "jenjang": "Daycare",
+        "latitude": 0.0258,
+        "longitude": 109.347,
+        "jumlah_siswa": 32,
+        "jumlah_sis": 32,
+        "akreditasi": "A",
+        "biaya": 400000,
+        "kode_paud": "DA_32"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.347689393266,
+          -0.003370554636639
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 26,
+        "nama": "Daycare Matahari",
+        "jenjang": "Daycare",
+        "latitude": 0.0268,
+        "longitude": 109.343,
+        "jumlah_siswa": 18,
+        "jumlah_sis": 18,
+        "akreditasi": "B",
+        "biaya": 280000,
+        "kode_paud": "DA_18"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.36236051428,
+          0.02475320867803
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 27,
+        "nama": "Daycare Bintang Kecil",
+        "jenjang": "Daycare",
+        "latitude": 0.0278,
+        "longitude": 109.334,
+        "jumlah_siswa": 14,
+        "jumlah_sis": 14,
+        "akreditasi": "A",
+        "biaya": 320000,
+        "kode_paud": "DA_14"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.334166899532,
+          0.027627333640679
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 28,
+        "nama": "Daycare Anak Manis",
+        "jenjang": "Daycare",
+        "latitude": 0.0288,
+        "longitude": 109.342,
+        "jumlah_siswa": 20,
+        "jumlah_sis": 20,
+        "akreditasi": "B",
+        "biaya": 270000,
+        "kode_paud": "DA_20"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.306869169157,
+          0.007497163755335
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 29,
+        "nama": "Daycare Sejahtera",
+        "jenjang": "Daycare",
+        "latitude": 0.0298,
+        "longitude": 109.348,
+        "jumlah_siswa": 11,
+        "jumlah_sis": 11,
+        "akreditasi": "C",
+        "biaya": 220000,
+        "kode_paud": "DA_11"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.348,
+          0.0298
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 30,
+        "nama": "Daycare Harmoni",
+        "jenjang": "Daycare",
+        "latitude": 0.0305,
+        "longitude": 109.341,
+        "jumlah_siswa": 35,
+        "jumlah_sis": 35,
+        "akreditasi": "A",
+        "biaya": 380000,
+        "kode_paud": "DA_35"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.316051213983,
+          0.015297154230543
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 31,
+        "nama": "Daycare Kiddy",
+        "jenjang": "Daycare",
+        "latitude": 0.0315,
+        "longitude": 109.344,
+        "jumlah_siswa": 16,
+        "jumlah_sis": 16,
+        "akreditasi": "B",
+        "biaya": 260000,
+        "kode_paud": "DA_16"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.341737682479,
+          0.013355221904416
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 32,
+        "nama": "Daycare Tunas",
+        "jenjang": "Daycare",
+        "latitude": 0.032,
+        "longitude": 109.345,
+        "jumlah_siswa": 22,
+        "jumlah_sis": 22,
+        "akreditasi": "A",
+        "biaya": 310000,
+        "kode_paud": "DA_22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.345,
+          0.032
+        ]
+      }
+    }
+  ]
+}

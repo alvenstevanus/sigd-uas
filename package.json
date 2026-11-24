@@ -1,0 +1,23 @@
+{
+  "name": "sigd-uas-kelompok14",
+  "version": "1.0.0",
+  "description": "Backend API Server Web GIS PAUD, TK & Daycare di Pontianak Utara - Kelompok 14",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "sig",
+    "gis",
+    "express",
+    "leaflet",
+    "geojson"
+  ],
+  "author": "Kelompok 14",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
