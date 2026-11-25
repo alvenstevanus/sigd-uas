@@ -3,106 +3,163 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Backend API Web GIS - Kelompok 14</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 40px auto;
-      max-width: 800px;
-      line-height: 1.6;
-      background-color: #f8fafc;
-      color: #1e293b;
-      padding: 0 20px;
-    }
-    .card {
-      background: #ffffff;
-      border-radius: 8px;
-      padding: 24px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-    }
-    h1 {
-      color: #0f172a;
-      margin-top: 0;
-    }
-    .badge {
-      display: inline-block;
-      background: #10b981;
-      color: white;
-      padding: 4px 10px;
-      border-radius: 9999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-    li {
-      margin-bottom: 12px;
-      padding: 10px;
-      background: #f1f5f9;
-      border-radius: 6px;
-    }
-    .method {
-      display: inline-block;
-      font-weight: bold;
-      width: 60px;
-      color: #2563eb;
-    }
-    .method.post {
-      color: #d97706;
-    }
-    a {
-      color: #0284c7;
-      text-decoration: none;
-      font-family: monospace;
-      font-size: 1rem;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    pre {
-      background: #1e293b;
-      color: #f8fafc;
-      padding: 12px;
-      border-radius: 6px;
-      overflow-x: auto;
-    }
-  </style>
+  <title>Web GIS PAUD, TK & Daycare Pontianak Utara — Kelompok 14</title>
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  
+  <!-- Leaflet MarkerCluster CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- App Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <div class="card">
-    <span class="badge">SK-3 Active</span>
-    <h1>Backend API Web GIS — Kelompok 14</h1>
-    <p><strong>Kasus:</strong> Pemetaan PAUD, TK & Daycare di Pontianak Utara</p>
-    <p>Server Node.js dan Express berhasil berjalan dan melayani data GeoJSON.</p>
+
+  <!-- Fullscreen Leaflet Map -->
+  <div id="map"></div>
+
+  <!-- Floating Control & Filter Panel -->
+  <div class="floating-panel">
+    <!-- Header -->
+    <div class="panel-header">
+      <span class="panel-tag"><i class="fas fa-layer-group"></i> SK-4 Leaflet JS</span>
+      <h1 class="panel-title">PAUD & TK Pontianak Utara</h1>
+      <p class="panel-subtitle">Sistem Informasi Geografis — Kelompok 14</p>
+      <button id="btn-toggle-panel" class="panel-toggle-btn" title="Kecilkan/Buka Panel">
+        <i class="fas fa-chevron-up"></i>
+      </button>
+    </div>
+
+    <!-- Scrollable Body -->
+    <div class="panel-body">
+      <!-- Stat Counter Card -->
+      <div class="stat-banner">
+        <div class="stat-item">
+          <span class="stat-num" id="stat-active">0</span>
+          <span class="stat-label">Titik Tampil</span>
+        </div>
+        <div style="border-left: 1px solid #cbd5e1; height: 28px;"></div>
+        <div class="stat-item">
+          <span class="stat-num" style="color: #64748b;" id="stat-total">32</span>
+          <span class="stat-label">Total Fasilitas</span>
+        </div>
+      </div>
+
+      <!-- Mode Display Switch (Clustering & Polygon Zona) -->
+      <div class="filter-group">
+        <div class="filter-group-title">
+          <span><i class="fas fa-sliders-h"></i> Opsi Visualisasi</span>
+        </div>
+        
+        <div class="switch-item">
+          <div class="switch-label-wrap">
+            <span class="switch-title">Clustering Titik</span>
+            <span class="switch-desc">L.markerClusterGroup()</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="toggle-cluster">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="switch-item">
+          <div class="switch-label-wrap">
+            <span class="switch-title">Poligon Zona</span>
+            <span class="switch-desc">Zona Pendidikan Anak</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="toggle-zona" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Filter Kategori Jenjang -->
+      <div class="filter-group">
+        <div class="filter-group-title">
+          <span><i class="fas fa-graduation-cap"></i> Filter Jenjang</span>
+        </div>
+        <div class="filter-options">
+          <label class="filter-checkbox">
+            <div class="checkbox-label-wrap">
+              <input type="checkbox" id="filter-tk" checked>
+              <span class="color-dot tk"></span>
+              <span>TK (Taman Kanak)</span>
+            </div>
+            <span class="badge-count" id="count-tk">0</span>
+          </label>
+
+          <label class="filter-checkbox">
+            <div class="checkbox-label-wrap">
+              <input type="checkbox" id="filter-paud" checked>
+              <span class="color-dot paud"></span>
+              <span>PAUD (Usia Dini)</span>
+            </div>
+            <span class="badge-count" id="count-paud">0</span>
+          </label>
+
+          <label class="filter-checkbox">
+            <div class="checkbox-label-wrap">
+              <input type="checkbox" id="filter-daycare" checked>
+              <span class="color-dot daycare"></span>
+              <span>Daycare (Penitipan)</span>
+            </div>
+            <span class="badge-count" id="count-daycare">0</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Filter Kategori Akreditasi -->
+      <div class="filter-group">
+        <div class="filter-group-title">
+          <span><i class="fas fa-award"></i> Filter Akreditasi</span>
+        </div>
+        <div class="filter-options horizontal">
+          <label class="filter-checkbox">
+            <div class="checkbox-label-wrap">
+              <input type="checkbox" id="filter-akr-a" checked>
+              <span>A</span>
+            </div>
+          </label>
+          <label class="filter-checkbox">
+            <div class="checkbox-label-wrap">
+              <input type="checkbox" id="filter-akr-b" checked>
+              <span>B</span>
+            </div>
+          </label>
+          <label class="filter-checkbox">
+            <div class="checkbox-label-wrap">
+              <input type="checkbox" id="filter-akr-c" checked>
+              <span>C</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="panel-actions">
+        <button id="btn-reset-filter" class="btn btn-outline">
+          <i class="fas fa-rotate-left"></i> Reset Filter
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="panel-footer">
+      <i class="fas fa-university"></i> PjBL SIG Dasar &copy; 2026 — Kelompok 14
+    </div>
   </div>
 
-  <div class="card">
-    <h2>Daftar Endpoint API:</h2>
-    <ul>
-      <li>
-        <span class="method">GET</span>
-        <a href="/api/data/paud" target="_blank">/api/data/paud</a>
-        <br><small>Menyajikan 32 data fasilitas PAUD, TK, dan Daycare dalam format GeoJSON.</small>
-      </li>
-      <li>
-        <span class="method">GET</span>
-        <a href="/api/stats/jenjang" target="_blank">/api/stats/jenjang</a>
-        <br><small>Menyajikan statistik agregat jumlah fasilitas per jenjang dan akreditasi.</small>
-      </li>
-      <li>
-        <span class="method">GET</span>
-        <a href="/api/data/zona" target="_blank">/api/data/zona</a>
-        <br><small>Menyajikan data 2 poligon zona pendidikan anak dalam format GeoJSON.</small>
-      </li>
-      <li>
-        <span class="method post">POST</span>
-        <code>/api/feature/zona</code>
-        <br><small>Menyimpan poligon baru hasil digitasi ke file zona_pendidikan_anak.geojson.</small>
-      </li>
-    </ul>
-  </div>
+  <!-- Leaflet JS CDN -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <!-- Leaflet MarkerCluster JS CDN -->
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <!-- App JS -->
+  <script src="/js/app.js"></script>
 </body>
 </html>
