@@ -28,6 +28,7 @@ let regularMarkerGroup = null;
 let clusterMarkerGroup = null;
 let zonaPolygonGroup = null;
 let legendControl = null;
+let drawControl = null;
 
 // Utility: Skema Warna per Jenjang
 function getColorByJenjang(jenjang) {
@@ -277,16 +278,174 @@ function initLayers() {
   createMapLegend();
 }
 
+// Fitur Gambar Poligon Zona dengan Leaflet.draw
+// Toolbar ditampilkan langsung di topleft saat peta dimuat (tidak perlu tombol pemicu tambahan).
+function initDrawControl() {
+  try {
+    // WORKAROUND kompatibilitas Leaflet.draw v1.0.4 + Leaflet 1.9+:
+    // Mencegah ReferenceError: type is not defined saat menggambar poligon.
+    window.type = '';
+
+    // 1. Buat FeatureGroup untuk menampung hasil gambar (harus dibuat sebelum L.Control.Draw)
+    const drawnItems = new L.FeatureGroup().addTo(map);
+
+    // 2. Inisialisasi kontrol gambar (hanya polygon, posisi topleft)
+    // showArea di-set false untuk menghindari bug pada Leaflet versi terbaru.
+    drawControl = new L.Control.Draw({
+      position: 'topleft',
+      edit: {
+        featureGroup: drawnItems,
+        edit: false,
+        remove: false
+      },
+      draw: {
+        polygon: {
+          allowIntersection: false,
+          showArea: false,
+          shapeOptions: {
+            color: '#3b82f6',
+            weight: 2,
+            fillColor: '#3b82f6',
+            fillOpacity: 0.15
+          }
+        },
+        polyline: false,
+        circle: false,
+        rectangle: false,
+        marker: false,
+        circlemarker: false
+      }
+    }).addTo(map);
+
+    console.log('[Leaflet.draw] Kontrol gambar poligon aktif di topleft');
+
+    // 3. Event saat selesai menggambar poligon (L.Draw.Event.CREATED)
+    map.on(L.Draw.Event.CREATED, async (e) => {
+      const layer = e.layer;
+      const feature = layer.toGeoJSON();
+
+      console.log('[Leaflet.draw] draw:created terpanggil', {
+        geometryType: feature && feature.geometry ? feature.geometry.type : null,
+        coordinates: feature && feature.geometry ? feature.geometry.coordinates : null
+      });
+
+      // Simpan ke layer gambar agar dapat dilacak oleh kontrol draw
+      drawnItems.addLayer(layer);
+
+      // 4. Minta nama zona kepada pengguna
+      const namaZona = prompt('Masukkan nama zona pendidikan anak:');
+      if (!namaZona || namaZona.trim() === '') {
+        console.warn('[Leaflet.draw] Pengguna batal, gambar dibatalkan.');
+        drawnItems.removeLayer(layer);
+        return;
+      }
+
+      try {
+        // Payload cocok dengan handler app.post('/api/feature/zona') di server.js:
+        //   const newFeature = req.body.feature || req.body;
+        //   if (!newFeature || !newFeature.geometry) -> 400
+        //   default: properties.fid, properties.nama_zona
+        const payload = {
+          feature: {
+            type: 'Feature',
+            properties: {
+              nama_zona: namaZona.trim()
+            },
+            geometry: feature.geometry
+          }
+        };
+
+        console.log('[Leaflet.draw] POST /api/feature/zona payload:', payload);
+
+        const res = await fetch('/api/feature/zona', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        console.log('[Leaflet.draw] Respons server:', res.status, res.statusText);
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.message || 'Gagal menyimpan zona ke server.');
+        }
+
+        const data = await res.json();
+        console.log('[Leaflet.draw] Zona berhasil disimpan:', data);
+
+        // Tambahkan poligon ke layer zona utama agar langsung terlihat di peta
+        const newFeatureForLayer = {
+          type: 'Feature',
+          properties: {
+            nama_zona: namaZona.trim(),
+            fid: data.feature ? data.feature.fid : null
+          },
+          geometry: feature.geometry
+        };
+
+        const zonaLayer = L.geoJSON(newFeatureForLayer, {
+          style: {
+            color: '#2563eb',
+            weight: 2,
+            dashArray: '6, 6',
+            fillColor: '#3b82f6',
+            fillOpacity: 0.15
+          },
+          onEachFeature: (f, l) => {
+            l.bindPopup(`
+              <div style="padding: 10px; font-family: sans-serif;">
+                <strong style="color: #1e293b; font-size: 0.95rem;">📍 ${f.properties.nama_zona || 'Zona Pendidikan'}</strong>
+                <p style="margin-top: 4px; font-size: 0.8rem; color: #64748b;">Zona baru hasil gambar Leaflet.draw.</p>
+              </div>
+            `);
+          }
+        });
+        zonaPolygonGroup.addLayer(zonaLayer);
+
+        // Segarkan data zona dari server agar state sinkron
+        try {
+          const resZona = await fetch('/api/data/zona');
+          if (resZona.ok) {
+            zonaGeoJsonData = await resZona.json();
+            console.log('[Leaflet.draw] Data zona di-refresh, total fitur:', zonaGeoJsonData.features ? zonaGeoJsonData.features.length : 0);
+          }
+        } catch (errZona) {
+          console.warn('[Leaflet.draw] Gagal refresh data zona:', errZona);
+        }
+
+        // Kembali ke mode normal setelah selesai menggambar (jika method tersedia)
+        if (typeof drawControl.disable === 'function') {
+          drawControl.disable();
+        }
+
+        alert('Zona pendidikan baru berhasil disimpan dan ditampilkan di peta.');
+      } catch (err) {
+        console.error('[Leaflet.draw] Error menyimpan zona:', err);
+        alert('Gagal menyimpan zona baru: ' + err.message);
+      }
+    });
+  } catch (err) {
+    console.error('Leaflet.draw gagal diinisialisasi:', err);
+  }
+}
+
 // Mengambil Data dari Backend Express API
 async function fetchApiData() {
+  // --- 1. Fetch Data PAUD (terpisah agar error zona tidak menyembunyikan PAUD) ---
   try {
-    // 1. Fetch Data PAUD (GET /api/data/paud)
     const resPaud = await fetch('/api/data/paud');
-    if (!resPaud.ok) throw new Error('Gagal mengambil data PAUD');
+    console.log('GET /api/data/paud -> HTTP', resPaud.status);
+    if (!resPaud.ok) {
+      throw new Error('Gagal mengambil data PAUD (HTTP ' + resPaud.status + ')');
+    }
     paudGeoJsonData = await resPaud.json();
 
     // FitBounds otomatis ke seluruh titik data GeoJSON
-    if (paudGeoJsonData && Array.isArray(paudGeoJsonData.features) && paudGeoJsonData.features.length > 0) {
+    if (
+      paudGeoJsonData &&
+      Array.isArray(paudGeoJsonData.features) &&
+      paudGeoJsonData.features.length > 0
+    ) {
       const tempGeoJsonLayer = L.geoJSON(paudGeoJsonData);
       const bounds = tempGeoJsonLayer.getBounds();
       if (bounds.isValid()) {
@@ -294,23 +453,34 @@ async function fetchApiData() {
       }
     }
 
-    // 2. Fetch Data Poligon Zona (GET /api/data/zona)
-    try {
-      const resZona = await fetch('/api/data/zona');
-      if (resZona.ok) {
-        zonaGeoJsonData = await resZona.json();
-      }
-    } catch (errZona) {
-      console.warn('Gagal memuat data zona polygon:', errZona);
-    }
-
-    // Render Awal
-    renderZona();
+    // Render titik PAUD segera (jangan tunggu data zona)
     renderPaud();
-  } catch (error) {
-    console.error('Error fetching API data:', error);
-    alert('Terjadi kesalahan saat mengambil data dari server backend Express.');
+  } catch (errorPaud) {
+    // Log spesifik agar penyebab pasti terlihat di console
+    console.error('Error mengambil data PAUD:', errorPaud);
+    alert('Terjadi kesalahan saat mengambil data PAUD dari server backend Express.');
+    return; // Hentikan di sini jika data inti (PAUD) gagal dimuat
   }
+
+  // --- 2. Fetch Data Poligon Zona (isolasi, tidak mengganggu tampilan PAUD) ---
+  try {
+    const resZona = await fetch('/api/data/zona');
+    console.log('GET /api/data/zona -> HTTP', resZona.status);
+    if (resZona.ok) {
+      zonaGeoJsonData = await resZona.json();
+    } else {
+      // Endpoint tersedia tapi mengembalikan error (misal 404/500)
+      console.warn('GET /api/data/zona mengembalikan HTTP', resZona.status, '- menggunakan zona kosong.');
+      zonaGeoJsonData = { type: 'FeatureCollection', features: [] };
+    }
+  } catch (errZona) {
+    // Jika endpoint tidak tersedia sama sekali (jaringan / 404), gunakan zona kosong sebagai fallback
+    console.warn('Endpoint /api/data/zona tidak tersedia, menggunakan zona kosong sebagai fallback:', errZona);
+    zonaGeoJsonData = { type: 'FeatureCollection', features: [] };
+  }
+
+  // Render layer zona (tidak akan error meskipun zonaGeoJsonData kosong)
+  renderZona();
 }
 
 // Inisialisasi Event Listener untuk Control Panel
@@ -411,6 +581,16 @@ document.addEventListener('DOMContentLoaded', () => {
   initMap();
   initLayers();
   setupEventListeners();
+
+  // Muat dan render data terlebih dahulu agar titik lokasi PAUD selalu tampil,
+  // meskipun inisialisasi Leaflet.draw gagal.
   fetchApiData();
+
+  // Inisialisasi fitur gambar poligon (diamalkan jika gagal, tidak mengganggu render data)
+  try {
+    initDrawControl();
+  } catch (err) {
+    console.error('Gagal memanggil initDrawControl:', err);
+  }
 });
 
